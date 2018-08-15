@@ -1,4 +1,4 @@
-# Atm-Telegram-Bot
+# Atms-Telegram-Bot
 Bot de Telegram que muestra los cajeros (link y banelco) cercanos a la posicion del usuario.(Solo funciona en CABA)
 
 ### Comandos
