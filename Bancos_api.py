@@ -50,7 +50,7 @@ def buscarCajeros(user_data):
                 distancia_a_usuario = calcularDistancia((lon,lat), user_data["coordenadas"])
 
                 if ( distancia_a_usuario <= 500):
-                    banco_cercano = banco_actual = Banco(cajero[3], cajero[5], lon, lat, distancia_a_usuario)
+                    banco_cercano = Banco(cajero[3], cajero[5], lon, lat, distancia_a_usuario)
                     cajeros_cercanos.append(banco_cercano)
 
     cajeros_cercanos.sort(key=lambda banco: banco.distacia_a_usuario())
