@@ -10,7 +10,7 @@ Bot de Telegram que muestra los cajeros (link y banelco) cercanos (500m a la red
 
 ---
 
-###Requerimientos:
+### Requerimientos:
 En caso de querer descargar el código, tener en cuenta que para correr el bot se necesitan los siguientes tokens:
 
 -Token de autenticación de bot de telegram (se obtiene hablando con el <a href="https://telegram.me/botfather">BotFather</a>)
