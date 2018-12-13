@@ -1,11 +1,12 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from telegram import KeyboardButton,ReplyKeyboardMarkup, ReplyKeyboardRemove
-import Bancos_api
+from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from app import Bancos
 import config
 
 TOKEN = config.TOKENS["TELEGRAM_API"]
 
 GOOGLE_MAP_API_KEY = config.TOKENS["GOOGLE_MAPS_API"]
+
 
 def start(bot, update, user_data):
     """Despliega el boton para pedir la ubicacion del usuario"""
@@ -19,15 +20,13 @@ def start(bot, update, user_data):
     bot.send_message(chat_id=update.message.chat_id, text=mensaje, reply_markup = reply_markup)
 
 
-
 def cajeros(bot, update, user_data):
-    """Hace las consultas a la api y desplega un mensaje y un mapa con los cajeros mas cercanos"""
-
+    """Busca los 3 cajeros mas cercanos al usuario y despliega un mensaje y un mapa con los mismos"""
     if not "coordenadas" in user_data:
         bot.send_message(chat_id=update.message.chat_id, text="Lo siento, primero necesito conocer tu ubicacion (usá /start)")
 
     user_data["firma"] = (update.message.text).replace("/","").upper()
-    cajeros = Bancos_api.buscarCajeros(user_data)
+    cajeros = Bancos.buscarCajeros(user_data)
 
     if len(cajeros) == 0:
         mensaje = "No hay cajeros cercanos"
@@ -45,8 +44,6 @@ def cajeros(bot, update, user_data):
 
     bot.send_message(chat_id=update.message.chat_id, text=mensaje)
     bot.send_photo(chat_id=update.message.chat_id, photo=map)
-
-
 
 
 def obtener_ubicacion(bot, update, user_data):
@@ -80,6 +77,7 @@ def main():
 
     updater.start_polling()
     updater.idle()
+
 
 if __name__ == '__main__':
     main()

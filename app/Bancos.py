@@ -5,13 +5,12 @@ from vincenty import vincenty
 
 
 class Banco:
-    """Representacion del objeto Banco, con su nombre, ubicacion, coordenadas y distancia al usuario"""
+    """Representacion del objeto Banco, con su nombre, ubicacion y coordenadas"""
 
-    def __init__(self, bank, address, lon, lat, distancia=0):
+    def __init__(self, bank, address, lon, lat):
         self.name = bank
         self.address = address
         self.coordenadas = (lon, lat)
-        self.distancia = distancia
 
     def coords(self):
         return self.coordenadas
@@ -21,9 +20,6 @@ class Banco:
 
     def nombre(self):
         return self.name
-
-    def distacia_a_usuario(self):
-        return self.distancia
 
     def __str__(self):
         return self.name
@@ -36,9 +32,10 @@ def buscarCajeros(user_data):
     """Busca los 3 cajeros más cercanos al usuario.
         Devuelve una lista de Bancos."""
 
-    with open(path.join("cajeros-automaticos.csv"), "r") as dataset:
+    with open(path.join("app","cajeros-automaticos.csv"), "r") as dataset:
         if user_data["firma"] == "LINK":
             cajeros = csv.reader(islice(dataset, 694, None), delimiter=";")
+
         else:
             cajeros = csv.reader(islice(dataset, 1, 694), delimiter=";")
         cajeros_cercanos = []
@@ -50,13 +47,12 @@ def buscarCajeros(user_data):
                 distancia_a_usuario = calcularDistancia((lon,lat), user_data["coordenadas"])
 
                 if ( distancia_a_usuario <= 500):
-                    banco_cercano = Banco(cajero[3], cajero[5], lon, lat, distancia_a_usuario)
+                    banco_cercano = (Banco(cajero[3], cajero[5], lon, lat), distancia_a_usuario)
                     cajeros_cercanos.append(banco_cercano)
 
-    cajeros_cercanos.sort(key=lambda banco: banco.distacia_a_usuario())
-    print(len(cajeros_cercanos))
+    cajeros_cercanos.sort(key=lambda banco: banco[1])
 
-    return cajeros_cercanos[:3]
+    return [cajero[0] for cajero in cajeros_cercanos[:3]]
 
 
 def calcularDistancia(coordenadas_cajero, coordenadas_usuario):
