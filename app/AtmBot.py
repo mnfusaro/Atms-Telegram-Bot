@@ -1,3 +1,4 @@
+#!/usr/bin/python3.6
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from app import Bancos
