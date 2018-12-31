@@ -1,7 +1,7 @@
 #!/usr/bin/python3.5
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
-from app import Bancos
+import Bancos
 import config
 
 TOKEN = config.TOKENS["TELEGRAM_API"]
