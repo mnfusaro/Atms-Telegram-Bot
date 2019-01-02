@@ -1,12 +1,11 @@
-#!/usr/bin/python3.5
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import KeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 import Bancos
-import config
+from config import *
 
-TOKEN = config.TOKENS["TELEGRAM_API"]
+TOKEN = TOKENS["TELEGRAM_API"]
 
-GOOGLE_MAP_API_KEY = config.TOKENS["GOOGLE_MAPS_API"]
+GOOGLE_MAP_API_KEY = TOKENS["GOOGLE_MAPS_API"]
 
 
 def start(bot, update, user_data):
